@@ -13,13 +13,13 @@ int handle_write_char(char c, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int i = 0;
-	char padd = ' '
+	char pado = ' ';
 
 	UNUSED(precision);
 	UNUSED(size);
 
 	if (flags & F_ZERO)
-		padd = '0';
+		pado = '0';
 
 	buffer[i++] = c;
 	buffer[i] = '\0';
@@ -28,7 +28,7 @@ int handle_write_char(char c, char buffer[],
 	{
 		buffer[BUFF_SIZE - 1] = '\0';
 		for (i = 0; i < width - 1; i++)
-			buffer[BUFF_SIZE - i - 2] = padd;
+			buffer[BUFF_SIZE - i - 2] = pado;
 
 		if (flags & F_MINUS)
 			return (write(1, &buffer[0], 1) +
@@ -56,12 +56,12 @@ int write_number(int is_negative, int ind, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int length = BUFF_SIZE - ind - 1;
-	char padd = ' ', extra_ch = 0;
+	char pado = ' ', extra_ch = 0;
 
 	UNUSED(size);
 
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
-		padd = '0';
+		pado = '0';
 	if (is_negative)
 		extra_ch = '-';
 	else if (flags & F_PLUS)
@@ -70,7 +70,7 @@ int write_number(int is_negative, int ind, char buffer[],
 		extra_ch = ' ';
 
 	return (write_num(ind, buffer, flags, width, precision,
-		length, padd, extra_ch));
+		length, pado, extra_ch));
 }
 
 /**

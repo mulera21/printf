@@ -136,9 +136,8 @@ int print_int(va_list types, char buffer[],
 
 	w++;
 
-	return (write_number(is_negative, i, buffer, flags, width, precision, size));
+	return (write_number(negative, w, buffer, flags, width, precision, size));
 }
-
 /**
  * print_binary - Prints an unsigned number
  * @types: Lista of arguments
@@ -169,7 +168,7 @@ int print_binary(va_list types, char buffer[],
 	for (v = 1; v < 32; v++)
 	{
 		e /= 2;
-		a[i] = (q / e) % 2;
+		a[q] = (q / e) % 2;
 	}
 	for (v = 0, sum = 0, count = 0; v < 32; v++)
 	{
